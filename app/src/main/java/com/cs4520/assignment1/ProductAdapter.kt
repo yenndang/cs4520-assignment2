@@ -32,19 +32,29 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
             productName.text = product.name
             productPrice.text = "$${product.price}"
 
+            // Handle expiry date visibility and text for both Food and Equipment
+            if (product.expiryDate != null) {
+                productExpiryDate.visibility = View.VISIBLE
+                productExpiryDate.text = product.expiryDate
+            } else {
+                productExpiryDate.visibility = View.GONE
+            }
+
             when (product) {
                 is Product.Food -> {
-                    productExpiryDate.visibility = if (product.expiryDate != null) View.VISIBLE else View.GONE
-                    productExpiryDate.text = product.expiryDate ?: ""
                     itemView.setBackgroundColor(Color.parseColor("#FFD965")) // Light Yellow
                     productImage.setImageResource(R.drawable.food)
                 }
                 is Product.Equipment -> {
-                    productExpiryDate.visibility = View.GONE
                     itemView.setBackgroundColor(Color.parseColor("#E06666")) // Light Red
                     productImage.setImageResource(R.drawable.equipment)
                 }
             }
+
+            // Setting text color for all TextViews inside the item
+            productName.setTextColor(Color.parseColor("#000000"))
+            productPrice.setTextColor(Color.parseColor("#000000"))
+            productExpiryDate.setTextColor(Color.parseColor("#000000"))
         }
 
 
