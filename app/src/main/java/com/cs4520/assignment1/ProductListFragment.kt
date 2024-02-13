@@ -44,12 +44,3 @@ class ProductListFragment : Fragment() {
 }
 
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        //find RecyclerView by id
-//        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-//        val products = setUpProduct
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//        val adapter = ProductAdapter(products)
-//    }
-

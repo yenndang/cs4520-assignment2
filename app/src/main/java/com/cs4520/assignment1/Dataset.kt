@@ -1,7 +1,6 @@
 package com.cs4520.assignment1
 
 // modify the Dataset.kt file using the sealed class definition for Product
-
 val productsDataset: List<Product> = listOf(
     Product.Equipment("Treadmill", 32),
     Product.Food("Banana", "2024-02-29", 29),

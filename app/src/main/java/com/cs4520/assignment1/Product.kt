@@ -1,5 +1,6 @@
 package com.cs4520.assignment1
 
+// Sealed classes for product list (from dataset) in the ProductAdapter
 sealed class Product {
     abstract val name: String
     abstract val price: Int

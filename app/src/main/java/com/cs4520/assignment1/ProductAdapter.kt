@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+// Adapter for RecyclerView of ProductListFragment
 class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun getItemCount(): Int = products.size
@@ -36,12 +37,12 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
                     productExpiryDate.visibility = if (product.expiryDate != null) View.VISIBLE else View.GONE
                     productExpiryDate.text = product.expiryDate ?: ""
                     itemView.setBackgroundColor(Color.parseColor("#FFD965")) // Light Yellow
-                    productImage.setImageResource(R.drawable.food) // Replace with your actual drawable resource name
+                    productImage.setImageResource(R.drawable.food)
                 }
                 is Product.Equipment -> {
                     productExpiryDate.visibility = View.GONE
                     itemView.setBackgroundColor(Color.parseColor("#E06666")) // Light Red
-                    productImage.setImageResource(R.drawable.equipment) // Replace with your actual drawable resource name
+                    productImage.setImageResource(R.drawable.equipment)
                 }
             }
         }
