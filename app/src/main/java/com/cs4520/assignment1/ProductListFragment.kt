@@ -6,41 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.cs4520.assignment1.databinding.FragmentProductListBinding
 
 class ProductListFragment : Fragment() {
 
-    private var recyclerView: RecyclerView? = null
+    private var _binding: FragmentProductListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var productAdapter: ProductAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment and return the root view
-        return inflater.inflate(R.layout.fragment_product_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentProductListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize the RecyclerView here
-        recyclerView = view.findViewById(R.id.recyclerView)
         setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
+        productAdapter = ProductAdapter(productsDataset)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = productAdapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        recyclerView = null
-    }
-
-    private fun setupRecyclerView() {
-        // Check if recyclerView is not null before using it
-        recyclerView?.let {
-            productAdapter = ProductAdapter(productsDataset)
-            it.layoutManager = LinearLayoutManager(context)
-            it.adapter = productAdapter
-        }
+        _binding = null
     }
 }
-
-
