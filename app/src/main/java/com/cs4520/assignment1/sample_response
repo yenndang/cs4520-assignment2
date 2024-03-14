@@ -1,0 +1,124 @@
+https://kgtttq6tg9.execute-api.us-east-2.amazonaws.com/prod/?page=3
+
+[
+    {
+        "name": "Papaya",
+        "type": "Food",
+        "expiryDate": "2024-03-08",
+        "price": 2
+    },
+    {
+        "name": "Foam Roller",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 25
+    },
+    {
+        "name": "Fig",
+        "type": "Food",
+        "expiryDate": "2024-03-05",
+        "price": 1.5
+    },
+    {
+        "name": "Balance Board",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 30
+    },
+    {
+        "name": "Avocado",
+        "type": "Food",
+        "expiryDate": "2024-03-08",
+        "price": 2.5
+    },
+    {
+        "name": "Agility Ladder",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 40
+    },
+    {
+        "name": "Guava",
+        "type": "Food",
+        "expiryDate": "2024-03-07",
+        "price": 2
+    },
+    {
+        "name": "Agility Cones",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 20
+    },
+    {
+        "name": "Passion Fruit",
+        "type": "Food",
+        "expiryDate": "2024-03-02",
+        "price": 3
+    },
+    {
+        "name": "Exercise Ball",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 30
+    },
+    {
+        "name": "Cranberry",
+        "type": "Food",
+        "expiryDate": "2024-03-02",
+        "price": 2.5
+    },
+    {
+        "name": "Weighted Vest",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 80
+    },
+    {
+        "name": "Pomegranate",
+        "type": "Food",
+        "expiryDate": "2024-03-06",
+        "price": 2.75
+    },
+    {
+        "name": "Push-Up Bars",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 20
+    },
+    {
+        "name": "Dragonfruit",
+        "type": "Food",
+        "expiryDate": "2024-03-03",
+        "price": 4
+    },
+    {
+        "name": "Ab Roller",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 25
+    },
+    {
+        "name": "Lychee",
+        "type": "Food",
+        "expiryDate": "2024-03-05",
+        "price": 3
+    },
+    {
+        "name": "Hand Grips",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 15
+    },
+    {
+        "name": "Kiwifruit",
+        "type": "Food",
+        "expiryDate": "2024-03-03",
+        "price": 1.75
+    },
+    {
+        "name": "Ankle Weights",
+        "type": "Equipment",
+        "expiryDate": null,
+        "price": 30
+    }
+]
