@@ -20,8 +20,10 @@ class ProductListFragment : Fragment() {
     private var _binding: FragmentProductListBinding? = null
     private val binding get() = _binding!!
 
-    // Initialize productAdapter with an empty list
-    private lateinit var productAdapter: ProductAdapter
+    // Initialize productAdapter with an empty list upfront
+    private val productAdapter: ProductAdapter by lazy {
+        ProductAdapter(mutableListOf())
+    }
 
     private val viewModel: ProductViewModel by viewModels {
         ProductViewModelFactory(
@@ -40,9 +42,16 @@ class ProductListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        setupRecyclerView()
         observeProducts()
         viewModel.fetchProducts()
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = productAdapter
+        }
     }
 
     private fun observeProducts() {
@@ -50,17 +59,25 @@ class ProductListFragment : Fragment() {
             when (result) {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.textViewEmpty.visibility = View.GONE
-                    productAdapter = ProductAdapter(result.data)
-                    binding.recyclerView.adapter = productAdapter
+                    if (result.data.isEmpty()) {
+                        binding.textViewEmpty.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        binding.textViewEmpty.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                        productAdapter.updateData(result.data)
+                    }
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(context, result.exception.message ?: "An error occurred", Toast.LENGTH_LONG).show()
+                    binding.textViewEmpty.visibility = View.VISIBLE
+                    binding.textViewEmpty.text = result.exception.message ?: "An error occurred"
+                    binding.recyclerView.visibility = View.GONE
                 }
                 is Result.Empty -> {
                     binding.progressBar.visibility = View.GONE
                     binding.textViewEmpty.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.GONE
                 }
             }
         }

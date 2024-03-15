@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cs4520.assignment1.models.Product
 
 // Adapter for RecyclerView of ProductListFragment
-class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private var products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun getItemCount(): Int = products.size
 
@@ -22,6 +22,13 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(products[position])
     }
+
+    fun updateData(newProducts: List<Product>) {
+        products.clear()
+        products.addAll(newProducts)
+        notifyDataSetChanged()
+    }
+
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productImage: ImageView = itemView.findViewById(R.id.imageViewProductIcon)
