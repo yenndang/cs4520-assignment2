@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cs4520.assignment1.api.AppDatabaseSingleton
 import com.cs4520.assignment1.databinding.FragmentProductListBinding
 import com.cs4520.assignment1.repository.ProductRepository
@@ -51,8 +52,22 @@ class ProductListFragment : Fragment() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = productAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                    if (!viewModel.isFetching && !viewModel.isLastPage && totalItemCount <= (lastVisibleItemPosition + 2)) {// VISIBLE_THRESHOLD = 5
+                        viewModel.loadMoreProducts()
+                    }
+                }
+            })
         }
     }
+
+
 
     private fun observeProducts() {
         viewModel.productList.observe(viewLifecycleOwner) { result ->
