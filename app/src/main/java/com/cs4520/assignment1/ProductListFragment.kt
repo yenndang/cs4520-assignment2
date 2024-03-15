@@ -65,7 +65,7 @@ class ProductListFragment : Fragment() {
                     } else {
                         binding.textViewEmpty.visibility = View.GONE
                         binding.recyclerView.visibility = View.VISIBLE
-                        productAdapter.updateData(result.data)
+                        productAdapter.updateProducts(result.data)
                     }
                 }
                 is Result.Error -> {
