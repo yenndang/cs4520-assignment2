@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cs4520.assignment1.databinding.ItemProductBinding
 import com.cs4520.assignment1.models.Product
 
-class ProductAdapter(private var products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private var products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun getItemCount(): Int = products.size
+    private val productNames = mutableSetOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         // Using ViewBinding for inflation
@@ -23,7 +24,12 @@ class ProductAdapter(private var products: List<Product>) : RecyclerView.Adapter
     }
 
     fun updateProducts(newProducts: List<Product>) {
-        products = newProducts
+        // Update the method to avoid adding duplicates
+        newProducts.forEach { newProduct ->
+            if (!products.any { existingProduct -> existingProduct.name == newProduct.name }) {
+                products.add(newProduct)
+            }
+        }
         notifyDataSetChanged()
     }
 

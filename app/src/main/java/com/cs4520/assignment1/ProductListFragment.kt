@@ -59,7 +59,7 @@ class ProductListFragment : Fragment() {
                     val totalItemCount = layoutManager.itemCount
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
 
-                    if (!viewModel.isFetching && !viewModel.isLastPage && totalItemCount <= (lastVisibleItemPosition + 2)) {// VISIBLE_THRESHOLD = 5
+                    if (!viewModel.isFetching && totalItemCount <= (lastVisibleItemPosition + 2)) {// VISIBLE_THRESHOLD = 2?
                         viewModel.loadMoreProducts()
                     }
                 }
@@ -67,14 +67,12 @@ class ProductListFragment : Fragment() {
         }
     }
 
-
-
     private fun observeProducts() {
         viewModel.productList.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    if (result.data.isEmpty()) {
+                    if (result.data.isEmpty() && productAdapter.itemCount == 0) {
                         binding.textViewEmpty.visibility = View.VISIBLE
                         binding.recyclerView.visibility = View.GONE
                     } else {
@@ -85,18 +83,29 @@ class ProductListFragment : Fragment() {
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.textViewEmpty.visibility = View.VISIBLE
-                    binding.textViewEmpty.text = result.exception.message ?: "An error occurred"
-                    binding.recyclerView.visibility = View.GONE
+                    if (productAdapter.itemCount == 0) {
+                        binding.textViewEmpty.visibility = View.VISIBLE
+                        binding.textViewEmpty.text = result.exception.message ?: "An error occurred"
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        Toast.makeText(context, "API error. Try scrolling down again for more content.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 is Result.Empty -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.textViewEmpty.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
+                    if (productAdapter.itemCount == 0) {
+                        binding.textViewEmpty.visibility = View.VISIBLE
+                        binding.textViewEmpty.text = "No products available. Try scrolling down again for more content."
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        Toast.makeText(context, "No products available. Try scrolling down again for more content.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
